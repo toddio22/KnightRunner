@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private bool grounded;
     private GameManager gameManager;
+    
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
