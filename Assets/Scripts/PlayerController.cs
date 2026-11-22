@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private bool grounded;
     private GameManager gameManager;
+    public bool shielded = false;
     
     
     
@@ -64,16 +65,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //triggers
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //coin detection
-        if (collision.gameObject.CompareTag("Coin"))
-        {
-            gameManager.coinCollection();
-            Destroy(collision.gameObject);
-        }
-    }
+    
 
 
 

@@ -7,11 +7,13 @@ public class GameManager : MonoBehaviour
     int score = 0;
     [SerializeField]
     private TMP_Text scoreDisplay;
+    private PlayerController pc;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         scoreDisplay.text = "Score: " + score;
+        pc = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -22,7 +24,14 @@ public class GameManager : MonoBehaviour
 
     public void playerDeath()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if(pc.shielded == true)
+        {
+            pc.shielded = false;
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     public void coinCollection()
@@ -31,5 +40,20 @@ public class GameManager : MonoBehaviour
         score += 10;
         //Debug.Log("Score: " + score);
         scoreDisplay.text = "Score: " + score;
+    }
+
+    public void jumpBoost()
+    {
+        pc.jumpForce += 2;
+    }
+
+    public void speedBoost()
+    {
+        pc.movementSpeed += 2;
+    }
+
+    public void addShield()
+    {
+        pc.shielded = true;
     }
 }
