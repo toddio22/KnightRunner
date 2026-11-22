@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,12 +9,14 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnimator;
     public float jumpForce;
     private bool grounded;
+    private GameManager gameManager;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //playerAnimator = GetComponent<Animator>();
     }
 
@@ -39,17 +42,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //collision check
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //ground detection
         if(collision.gameObject.CompareTag("Ground"))
         {
             grounded = true;
         }
-        else
+        
+        //obstacle detection
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
-            grounded = false;
+            //Debug.Log("Death");
+            gameManager.playerDeath();
+        }
+
+        
+
+    }
+
+    //triggers
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //coin detection
+        if (collision.gameObject.CompareTag("Coin"))
+        {
+            gameManager.coinCollection();
+            Destroy(collision.gameObject);
         }
     }
+
 
 
 }
