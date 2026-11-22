@@ -12,6 +12,7 @@ public enum CollectableType
 public class CollectableController : MonoBehaviour
 {
     private GameManager gameManager;
+    private PlayerController pc;
     [SerializeField]
     private CollectableType collectableType;
     private bool collected = false;
@@ -20,6 +21,7 @@ public class CollectableController : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        pc = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -57,8 +59,10 @@ public class CollectableController : MonoBehaviour
 
                 case CollectableType.Shield:
                     gameManager.addShield();
-                    break;
+                    pc.equipShield(gameObject);
+                    return;
             }
+            GetComponent<Collider2D>().enabled = false;
             Destroy(gameObject);
         }
     }

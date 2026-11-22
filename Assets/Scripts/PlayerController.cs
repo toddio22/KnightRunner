@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private bool grounded;
     private GameManager gameManager;
     public bool shielded = false;
+    public GameObject shieldLoc;
+    public GameObject equippedShield;
     
     
     
@@ -64,9 +66,20 @@ public class PlayerController : MonoBehaviour
         
 
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Killzone"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
 
-    
 
-
+    public void equipShield(GameObject shield)
+    {
+        equippedShield = shield;
+        shield.transform.position = shieldLoc.transform.position;
+        shield.gameObject.transform.SetParent(shieldLoc.transform);
+    }
 
 }

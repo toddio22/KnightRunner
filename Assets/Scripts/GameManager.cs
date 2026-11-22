@@ -24,9 +24,13 @@ public class GameManager : MonoBehaviour
 
     public void playerDeath()
     {
-        if(pc.shielded == true)
+        if(pc.shielded)
         {
             pc.shielded = false;
+            if(pc.equippedShield != null)
+            {
+                Destroy(pc.equippedShield);
+            }
         }
         else
         {
