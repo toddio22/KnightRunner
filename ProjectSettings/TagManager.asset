@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - Killzone
   - Shield
+  - Recycle
   layers:
   - Default
   - TransparentFX
