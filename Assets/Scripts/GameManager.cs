@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            saveScore();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
@@ -60,4 +63,43 @@ public class GameManager : MonoBehaviour
     {
         pc.shielded = true;
     }
+
+    private void saveScore()
+    {
+        string path = Application.persistentDataPath + "/scores.txt";
+        Debug.Log(path);
+
+        List<int> scores = new List<int>();
+
+        if (File.Exists(path))
+        {
+            string[] lines = File.ReadAllLines(path);
+
+            foreach (string line in lines)
+            {
+                scores.Add(int.Parse(line));
+            }
+        }
+
+        scores.Add(score);
+        scores.Sort();
+        scores.Reverse();
+        while (scores.Count > 5)
+        {
+            scores.RemoveAt(scores.Count - 1);
+        }
+        List<string> scoreStrings = new List<string>();
+
+        foreach (int s in scores)
+        {
+            scoreStrings.Add(s.ToString());
+        }
+        File.WriteAllLines(path, scoreStrings);
+
+        foreach (int s in scores)
+        {
+            Debug.Log(s);
+        }
+    }
+
 }
