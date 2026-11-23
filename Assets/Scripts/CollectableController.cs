@@ -32,7 +32,10 @@ public class CollectableController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collected)
+        Debug.Log("Collectable Triggered");
+        Debug.Log(collectableType);
+
+        if (collected)
         {
             return;
         }

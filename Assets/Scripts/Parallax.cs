@@ -21,6 +21,13 @@ public class Parallax : MonoBehaviour
         originalTransform = transform.GetChild(0);
         cameraTransform = Camera.main.transform;
         lastCamPos = cameraTransform.position;
+
+        getImageDistance();
+        if(!oneImage)
+        {
+            createSideImages();
+        }
+        fillImageList();
         
     }
 
